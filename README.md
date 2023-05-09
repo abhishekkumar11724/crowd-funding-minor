@@ -1,7 +1,5 @@
 # Crowd funding
 
-https://user-images.githubusercontent.com/55044734/164529677-27af29f2-96d6-4ce6-bb61-c1f0c63a3beb.mp4
-
 ### Project features :bulb:
 
 -   [x] User can start a fundraising.
@@ -15,7 +13,7 @@ https://user-images.githubusercontent.com/55044734/164529677-27af29f2-96d6-4ce6-
 
 ### Tech stack & packages used 📦
 
-| package                                                        | explain                                          |
+<!-- | package                                                        | explain                                          |
 | -------------------------------------------------------------- | ------------------------------------------------ |
 | [Next.js](https://nextjs.org/docs/getting-started)             | For building frontend                            |
 | [solidity](https://docs.soliditylang.org/en/v0.8.13/)          | For writting smart contracts                     |
@@ -27,7 +25,7 @@ https://user-images.githubusercontent.com/55044734/164529677-27af29f2-96d6-4ce6-
 | [hardhat](https://www.npmjs.com/package/hardhat)               | Ethereum development environment.                |
 | [Redux](https://www.npmjs.com/package/hardhat)                 | For managing and centralizing application state. |
 
----
+--- -->
 
 ### How to run :runner: :
 
