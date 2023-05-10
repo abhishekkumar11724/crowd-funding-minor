@@ -42,11 +42,20 @@ contract Project{
     string public projectTitle;
     string public projectDes;
     State public state = State.Fundraising; 
+    updateDescription[] updates;
+    uint256 public numofUpdates = 0;
 
     mapping (address => uint) public contributiors;
     mapping (uint256 => WithdrawRequest) public withdrawRequests;
 
     uint256 public numOfWithdrawRequests = 0;
+
+     // STRUCTURE FOR UPDATES
+    struct updateDescription {
+        // address project_ID;
+        string descrption;
+        uint256 dateOfUpdate;
+    }
 
     // Modifiers
     modifier isCreator(){
@@ -85,6 +94,11 @@ contract Project{
         address reciptent
     );
 
+    // Event that will be emitted whenever creator add a update
+    event UpdatebyCreator (
+        address creator,
+        updateDescription[] updates
+    );
 
     // @dev Create project
     // @return null
@@ -104,33 +118,26 @@ contract Project{
        projectTitle = _projectTitle;
        projectDes = _projectDes;
        raisedAmount = 0;
-   }
-////////////////////////////
-
-    struct updateDescription {
-        // address project_ID;
-        string descrption;
-        uint256 dateOfUpdate;
-    }
+   }   
     
-    updateDescription[] updates;
 
-    function addUpdate(address ID, string memory despt ) public  {
+    // FUCTION TO ADD NEW UPDATES
+    function addUpdate( string memory despt ) public  {
        if(msg.sender == creator){
-        // updateDescription memory temp =  updateDescription(despt, ID, block.timestamp);
-        updateDescription memory temp ;
-        temp.descrption = despt;
-       // temp.project_ID = ID;
-        temp.dateOfUpdate = block.timestamp;
-        updates.push(temp);
+            numofUpdates++;
+            updateDescription storage temp = updates[numofUpdates];
+            temp.descrption = despt;
+            temp.dateOfUpdate = block.timestamp;
+            updates.push(temp);
+            emit UpdatebyCreator( msg.sender,updates );
        }
     }
 
+    function returnUpdates() public view returns(updateDescription[] memory) {
+        return updates;
+    }
 
 
-
-
-///////////////////////////////////
     // @dev Anyone can contribute
     // @return null
 
@@ -237,6 +244,7 @@ contract Project{
     string memory desc,
     State currentState,
     uint256 balance,
+    updateDescription[] memory update
 
 
     ){
@@ -250,6 +258,7 @@ contract Project{
         desc=projectDes;
         currentState=state;
         balance=address(this).balance;
+        update = updates;
     }
 
 }

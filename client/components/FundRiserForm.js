@@ -55,7 +55,7 @@ const FundRiserForm = () => {
 
   return (
     <>
-        <h1 className="font-sans font-bold text-xl">Start a fund riser fot free</h1>
+        <h1 className="font-sans font-bold text-xl">Start a fund riser for free</h1>
         <form onSubmit={(e)=>riseFund(e)}>
             <div className="form-control my-1">
                 <label className="text-sm text-gray-700">Title :</label>

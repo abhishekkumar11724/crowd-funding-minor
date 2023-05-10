@@ -10,7 +10,7 @@ import NProgress from 'nprogress'
 import "nprogress/nprogress.css";
 import { chainOrAccountChangedHandler } from '../helper/helper';
 
-function MyApp({ Component, pageProps }) {
+function MyApp({  Component, pageProps }) {
 
   const dispatch = useDispatch()
 

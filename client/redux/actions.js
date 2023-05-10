@@ -68,3 +68,10 @@ export const withdrawContractBalance = (data)=>{
         payload:data
     }
 }
+
+export const newUpdateLoaded = (data)=>{
+    return{
+        type:types.NEW_UPDATE_LOADED,
+        payload:data
+    }
+}

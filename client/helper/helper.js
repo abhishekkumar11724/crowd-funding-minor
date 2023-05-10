@@ -81,6 +81,16 @@ export const withdrawRequestDataFormatter = (data) =>{
     }
 }
 
+
+export const projectUpdatesDataFormatter = (data, creator) => {
+  const formattedData = {
+    description: data.description,
+    time: unixToDate(Number(data.dateofUpdate)),
+    creator: creator
+  }
+  return formattedData;
+}
+
 export const connectWithWallet = async (onSuccess) => {
   //connect web3 with http provider
   if (window.ethereum) {

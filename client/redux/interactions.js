@@ -2,7 +2,7 @@ import Web3 from "web3";
 import * as actions from "./actions";
 import CrowdFunding from '../artifacts/contracts/Crowdfunding.sol/Crowdfunding.json'
 import Project from '../artifacts/contracts/Project.sol/Project.json'
-import { groupContributionByProject, groupContributors, projectDataFormatter, withdrawRequestDataFormatter} from "../helper/helper";
+import { groupContributionByProject, groupContributors, projectDataFormatter, withdrawRequestDataFormatter, projectUpdatesDataFormatter} from "../helper/helper";
 
 const crowdFundingContractAddress = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
 
@@ -180,4 +180,79 @@ export const getMyContributionList = async(crowdFundingContract,account) =>{
     toBlock: 'latest'
   })
   return groupContributionByProject(getContributions);
+}
+
+//Get all updates 
+// export const getAllUpdates = async(web3,contractAddress,onLoadRequest) => {
+//     var projectConnector = new web3.eth.Contract(Project.abi,contractAddress);
+//     var projectUpdatesCount = await projectConnector.methods.numOfUpdates().call();
+//     var projectUpdates = [];
+  
+//     if(projectUpdatesCount <= 0){
+//       onLoadRequest(updates)
+//       return
+//     }
+  
+//     for(var i=1;i<=projectUpdatesCount;i++){
+//       const req = await projectConnector.methods.updates(i-1).call();
+//       projectUpdates.push(projectUpdatesDataFormatter({...req}));
+//     }
+//     onLoadRequest(projectUpdates)
+// }
+
+export const getAllUpdates = async (web3,contractAddress,onSuccess,onError) =>{
+  try {
+    var projectConnector = new web3.eth.Contract(Project.abi,contractAddress);
+    const getContributions = await projectConnector.getPastEvents("FundingReceived",{
+      fromBlock: 0,
+      toBlock: 'latest'
+    })
+    onSuccess(groupContributors(getContributions))
+  } catch (error) {
+    onError(error)
+  }
+}
+
+//add a update to the contract
+export const addUpdate = async(web3, contactAddress, CrowdFundingContract, data, onSuccess, onError, dispatch )=>{
+  const { updateDesc,
+    creator } = data;
+  await CrowdFundingContract.methods.addUpdate(updateDesc).send({from:account}).on('receipt', function(receipt){
+    // const updatesReceipt = receipt.events.UpdatebyCreator.returnValues;
+    // const projectUpdates = updatesReceipt.updates;
+    console(receipt);
+    // const contractAddress = projectsReceipt.projectContractAddress;
+    // const contractCreator = projectsReceipt.creator;
+    const formattedUpdatesData = projectUpdatesDataFormatter(projectUpdates,  creator);
+    // var projectConnector = new web3.eth.contract(Project.abi, contactAddress );
+
+    // dispatch(actions.newUpdateLoaded(formattedUpdatesData));
+    onSuccess();
+
+  }).on('error', function(error){ 
+    onError(error.message)
+  })
+}
+
+
+export const FundRaising = async(web3,CrowdFundingContract,data,onSuccess,onError,dispatch) =>{
+  const {minimumContribution,deadline,targetContribution,projectTitle,projectDesc,account} = data;
+
+  await CrowdFundingContract.methods.createProject(minimumContribution,deadline,targetContribution,projectTitle,projectDesc).send({from:account})
+  .on('receipt', function(receipt){ 
+
+    const projectsReceipt = receipt.events.ProjectStarted.returnValues;
+    const contractAddress = projectsReceipt.projectContractAddress;
+
+    const formattedProjectData = projectDataFormatter(projectsReceipt,contractAddress)
+    var projectConnector = new web3.eth.Contract(Project.abi,contractAddress);
+
+    dispatch(actions.newProjectContractsLoaded(projectConnector));
+    dispatch(actions.newProjectsLoaded(formattedProjectData));
+
+    onSuccess()
+  })
+  .on('error', function(error){ 
+    onError(error.message)
+  })
 }
