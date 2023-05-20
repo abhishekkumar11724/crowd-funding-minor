@@ -54,7 +54,8 @@ const FundRiserForm = () => {
     }
 
   return (
-    <>
+    
+        <div className='backdrop-blur-sm drop-shadow-[0_5px_5px_rgba(0,0,0,0.25)] '>
         <h1 className="font-sans font-bold text-xl">Start a fund riser for free</h1>
         <form onSubmit={(e)=>riseFund(e)}>
             <div className="form-control my-1">
@@ -78,9 +79,10 @@ const FundRiserForm = () => {
                 <input type="date" placeholder="Type here" className="form-control-input border-neutral-400 focus:ring-neutral-200" value={deadline} onChange={(e)=>setDeadline(e.target.value)} required/>
             </div>
 
-            <button className="p-2 w-full bg-[#F56D91] text-white rounded-md hover:bg-[#d15677]" disabled={btnLoading} >{btnLoading?"Loading...":"Rise fund"}</button>
+            <button className="p-2 w-full bg-[#759EC0] text-white rounded-md hover:bg-[#6843AA]" disabled={btnLoading} >{btnLoading?"Loading...":"Rise fund"}</button>
         </form>
-    </>
+    </div>
+   
   )
 }
 

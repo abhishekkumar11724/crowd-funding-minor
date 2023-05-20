@@ -42,11 +42,11 @@ const ProjectDetails = () => {
                 setWithdrawReq(data);
             };
 
-            const loadUpdates = (data)=> {
+            const loadUpdates = (data) => {
                 setUpdates(data);
-            }
+            };
             getAllWithdrawRequest(web3, id, loadWithdrawRequests);
-            getAllUpdates( web3, id, loadUpdates);
+            getAllUpdates(web3, id, loadUpdates);
         }
     }, [id]);
 
@@ -57,13 +57,13 @@ const ProjectDetails = () => {
             setWithdrawReq([data]);
         }
     };
-    
+
     //  updates?.map((data, i) => {console.log(data, i)})
 
     return (
-        <div className="px-2 py-4 flex flex-col lg:px-12 lg:flex-col ">
+        <div className="px-2 py-4 flex flex-col lg:px-12 lg:flex-col bg-[radial-gradient(ellipse_at_top_left,_var(--tw-gradient-stops))] from-gray-200 via-gray-400 to-gray-600">
             <div className="flex flex-row ">
-                <div className="lg:w-7/12 my-2 lg:my-0 lg:mx-2">
+                <div className="lg:w-1/2 h-[300px] my-2 lg:my-0 lg:mx-2">
                     {filteredProject ? (
                         <FundRiserCard
                             props={filteredProject[0]}
@@ -74,16 +74,47 @@ const ProjectDetails = () => {
                     )}
                 </div>
                 {/* <div className="lg:w-7/12 my-2 lg:my-0 lg:mx-2"> */}
-                <div>
+                <div className="lg:w-1/2 h-[300px] my-2 lg:my-0 lg:mx-2">
                     {filteredProject ? (
-                        <UpdateForm
-                            props={filteredProject[0]}
-                        />
+                        <UpdateForm props={filteredProject[0]} />
                     ) : (
                         <Loader />
                     )}
                 </div>
-                <div className="mx-4 lg:h-[100px]">
+            </div>
+            <div className="card flex flex-row content-between justify-between place-content-between">
+                <div className="card lg:w-1/2 h-vh*0.5 my-4 overflow-y-hidden hover:overflow-y-auto">
+                    <h1 className="font-sans font-bold text-xl">
+                        All contributors
+                    </h1>
+                    {contributors ? (
+                        contributors.length > 0 ? (
+                            contributors.map((data, i) => (
+                                <div
+                                    className="inner-card my-2 flex flex-row"
+                                    key={i}
+                                >
+                                    <div className="lg:w-1/5">
+                                        <div className="p-6 w-8 h-8 mx-auto my-auto rounded-md bg-slate-300 "></div>
+                                    </div>
+                                    <div className="lg:w-4/5">
+                                        <p className="text-md font-bold text-gray-800 w-40 truncate ">
+                                            {data.contributor}
+                                        </p>
+                                        <p className="text-sm font-bold text-gray-500">
+                                            {data.amount} ETH
+                                        </p>
+                                    </div>
+                                </div>
+                            ))
+                        ) : (
+                            <p>Contributors not found</p>
+                        )
+                    ) : (
+                        <Loader />
+                    )}
+                </div>
+                <div className=" p-4 lg:w-1/2 mx-4 w-[vw*0.5] lg:h-fit overflow-y-hidden hover:overflow-y-auto">
                     {withdrawReq ? (
                         withdrawReq.length > 0 ? (
                             <div>
@@ -107,38 +138,7 @@ const ProjectDetails = () => {
                         <Loader />
                     )}
                 </div>
-            </div>
-            {/* <div className="flex flex-col"> */}
-            <div className="card lg:w/2 h-vh*0.5 my-4 overflow-y-hidden hover:overflow-y-auto">
-                <h1 className="font-sans font-bold text-xl">
-                    All contributors
-                </h1>
-                {contributors ? (
-                    contributors.length > 0 ? (
-                        contributors.map((data, i) => (
-                            <div
-                                className="inner-card my-2 flex flex-row"
-                                key={i}
-                            >
-                                <div className="lg:w-1/5">
-                                    <div className="p-6 w-8 h-8 mx-auto my-auto rounded-md bg-slate-300 "></div>
-                                </div>
-                                <div className="lg:w-4/5">
-                                    <p className="text-md font-bold text-gray-800 w-40 truncate ">
-                                        {data.contributor}
-                                    </p>
-                                    <p className="text-sm font-bold text-gray-500">
-                                        {data.amount} ETH
-                                    </p>
-                                </div>
-                            </div>
-                        ))
-                    ) : (
-                        <p>Contributors not found</p>
-                    )
-                ) : (
-                    <Loader />
-                )}
+                {/* <div className="flex flex-col"> */}
             </div>
             <div className="card lg:w/2 h-vh*0.5 my-4 overflow-y-hidden hover:overflow-y-auto">
                 <h1 className="font-sans font-bold text-xl">
@@ -155,7 +155,6 @@ const ProjectDetails = () => {
                 ) : (
                     <p>No updates made by creator</p>
                 )}
-                
             </div>
             {/* </div> */}
         </div>
