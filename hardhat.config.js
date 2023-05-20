@@ -10,7 +10,8 @@ module.exports = {
   },
   networks: {
     hardhat: {
-      chainId: 31337
+      chainId: 31337,
+      // allowUnlimitedContractSize: true
     },
     // rinkeby: {
     //   url: `https://eth-rinkeby.alchemyapi.io/v2/${ALCHEMY_KEY}`,

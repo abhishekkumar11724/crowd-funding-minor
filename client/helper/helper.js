@@ -82,13 +82,13 @@ export const withdrawRequestDataFormatter = (data) =>{
 }
 
 
-export const projectUpdatesDataFormatter = (data, creator) => {
+export const projectUpdatesDataFormatter = (data) => {
   const formattedData = {
-    description: data.description,
-    time: unixToDate(Number(data.dateofUpdate)),
-    creator: creator
+    description: data.descrption,
+    time: new Date(data.dateOfUpdate*1000).toUTCString()
   }
-  return formattedData;
+ 
+  return formattedData; 
 }
 
 export const connectWithWallet = async (onSuccess) => {

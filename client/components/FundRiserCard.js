@@ -14,16 +14,18 @@ const colorMaker = (state) =>{
         return 'bg-emerald-500'
     }
 }
-
+ 
 const FundRiserCard = ({props,pushWithdrawRequests}) => {
 
   const [btnLoader, setBtnLoader] = useState(false)
   const [amount, setAmount] = useState(0)
   const dispatch = useDispatch();
+  //provides the address of the main contract
   const crowdFundingContract = useSelector(state=>state.fundingReducer.contract)
+  //provides the account address of the current user
   const account = useSelector(state=>state.web3Reducer.account)
   const web3 = useSelector(state=>state.web3Reducer.connection)
-
+    
   const contributeAmount = (projectId,minContribution) =>{
 
     if(amount < minContribution){

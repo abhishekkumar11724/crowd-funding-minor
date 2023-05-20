@@ -1,12 +1,15 @@
 import React from 'react'
 
 const AddupdateUI = ({index, description, time }) => {
+  // console.log(index, description, time)
   return (
     
     <div className="card relative overflow-hidden my-4">
-    index: {index}
+    <p>time: {time}</p>
+    <p>
     description: {description}
-    time: {time}
+    </p>
+    
 
   </div>
   )

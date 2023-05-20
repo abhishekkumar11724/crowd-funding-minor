@@ -30,6 +30,12 @@ contract Project{
         address payable reciptent;
     }
 
+    // struct for updates
+    struct updateDescription {
+        // address project_ID;
+        string descrption;
+        uint256 dateOfUpdate;
+    }
 
     // Variables
     address payable public creator;
@@ -42,20 +48,13 @@ contract Project{
     string public projectTitle;
     string public projectDes;
     State public state = State.Fundraising; 
-    updateDescription[] updates;
-    uint256 public numofUpdates = 0;
+    updateDescription[] public updates;
 
     mapping (address => uint) public contributiors;
     mapping (uint256 => WithdrawRequest) public withdrawRequests;
 
     uint256 public numOfWithdrawRequests = 0;
-
-     // STRUCTURE FOR UPDATES
-    struct updateDescription {
-        // address project_ID;
-        string descrption;
-        uint256 dateOfUpdate;
-    }
+    uint256 public numofUpdates = 0;
 
     // Modifiers
     modifier isCreator(){
@@ -125,11 +124,8 @@ contract Project{
     function addUpdate( string memory despt ) public  {
        if(msg.sender == creator){
             numofUpdates++;
-            updateDescription storage temp = updates[numofUpdates];
-            temp.descrption = despt;
-            temp.dateOfUpdate = block.timestamp;
-            updates.push(temp);
-            emit UpdatebyCreator( msg.sender,updates );
+            updates.push(updateDescription(despt, block.timestamp));
+            emit UpdatebyCreator( msg.sender,updates);
        }
     }
 
@@ -245,8 +241,6 @@ contract Project{
     State currentState,
     uint256 balance,
     updateDescription[] memory update
-
-
     ){
         projectStarter=creator;
         minContribution=minimumContribution;

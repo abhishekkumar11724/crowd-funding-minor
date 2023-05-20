@@ -7,55 +7,43 @@ import Project from "../artifacts/contracts/Project.sol/Project.json";
 import { addUpdate } from "../redux/interactions";
 import { unixToDate } from "../helper/helper";
 
-const UpdateForm = () => {
+const UpdateForm = ( { props} ) => {
     const [description, setDescription] = useState("");
-    // const [timeStamp, setTimeStamp] = useState("");
-    const [updateCreator, setUpdateCreator] = useState("");
-
-    const crowdFundingContract = useSelector(
-        (state) => state.fundingReducer.contract
-    );
+    const dispatch = useDispatch();
+    const projectId = props.address;
+    //provides the account address of the current user
     const account = useSelector((state) => state.web3Reducer.account);
     const web3 = useSelector((state) => state.web3Reducer.connection);
-    const dispatch = useDispatch();
-
+    
     const [btnLoading, setBtnLoading] = useState(false);
 
-    async function handleUpdate(e) {
-        e.preventDefault();
+    async function handleUpdate() {
         setBtnLoading(true);
+        console.log(projectId);
+    
+        const data = {
+            updateDesc: description,
+            account: account,
+        };
+        const onSuccess = (data) => {
+            setBtnLoading(false);
+            setDescription("");
+            toastSuccess("Update on project is posted 🎉");
+        };
+
         const onError = (error) => {
             setBtnLoading(false);
             toastError(error);
         };
 
-        const onSuccess = () => {
-            setBtnLoading(false);
-            setDescription("");
-            toastSuccess("Update on project is posted 🎉");
-        };
-        const data = {
-            updateDesc: description,
-            // updateTime: Number(unixToDate),
-            creator: updateCreator,
-        };
-
-        addUpdate(
-            web3,
-            crowdFundingContract,
-            data,
-            onSuccess,
-            onError,
-            dispatch
-        );
+        addUpdate(web3,projectId,data,dispatch,onSuccess,onError);
 
         
     }
 
     return (
-        <form
+        <div
             className="card relative overflow-hidden my-4"
-            onSubmit={(e) => handleUpdate(e)}
         >
             <div className="form-control my-1">
                 <label className="text-sm text-gray-700">Description :</label>
@@ -71,10 +59,11 @@ const UpdateForm = () => {
             <button
                 className="p-2 w-full bg-[#F56D91] text-white rounded-md hover:bg-[#d15677]"
                 disabled={btnLoading}
+                onClick={()=> handleUpdate()}
             >
                 {btnLoading ? "Loading..." : "add Update"}
             </button>
-        </form>
+        </div>
     );
 };
 

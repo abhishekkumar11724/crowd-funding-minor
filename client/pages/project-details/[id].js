@@ -3,12 +3,13 @@ import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import FundRiserCard from "../../components/FundRiserCard";
-import Addupdate from "../../components/AddupdateUI";
+import AddUpdate from "../../components/AddupdateUI";
 import Loader from "../../components/Loader";
 import WithdrawRequestCard from "../../components/WithdrawRequestCard";
 import UpdateForm from "../../components/UpdateForm";
 import authWrapper from "../../helper/authWrapper";
 import {
+    getAllUpdates,
     getAllWithdrawRequest,
     getContributors,
 } from "../../redux/interactions";
@@ -21,7 +22,7 @@ const ProjectDetails = () => {
     const web3 = useSelector((state) => state.web3Reducer.connection);
     const projectsList = useSelector((state) => state.projectReducer.projects);
     const filteredProject = projectsList?.filter((data) => data.address === id);
-
+    // console.log(filteredProject[0]);
     const [contributors, setContributors] = useState(null);
     const [withdrawReq, setWithdrawReq] = useState(null);
     const [updates, setUpdates] = useState(null);
@@ -40,33 +41,14 @@ const ProjectDetails = () => {
             const loadWithdrawRequests = (data) => {
                 setWithdrawReq(data);
             };
+
+            const loadUpdates = (data)=> {
+                setUpdates(data);
+            }
             getAllWithdrawRequest(web3, id, loadWithdrawRequests);
+            getAllUpdates( web3, id, loadUpdates);
         }
     }, [id]);
-
-    useEffect(() => {
-        async function fetchData() {
-            try {
-                if (window.ethereum) {
-                    const web3 = new Web3(window.ethereum);
-                    await window.ethereum.enable();
-                    const contract = new web3.eth.Contract(
-                        Project.abi,
-                        Project.networks[window.ethereum.networkVersion].address
-                    );
-                    const structs = await contract.methods
-                        .returnUpdates()
-                        .call();
-                    setUpdates(structs);
-                } else {
-                    console.error("Please install MetaMask to use this dApp.");
-                }
-            } catch (err) {
-                console.error(err);
-            }
-        }
-        fetchData();
-    }, []);
 
     const pushWithdrawRequests = (data) => {
         if (withdrawReq) {
@@ -75,6 +57,8 @@ const ProjectDetails = () => {
             setWithdrawReq([data]);
         }
     };
+    
+    //  updates?.map((data, i) => {console.log(data, i)})
 
     return (
         <div className="px-2 py-4 flex flex-col lg:px-12 lg:flex-col ">
@@ -88,8 +72,16 @@ const ProjectDetails = () => {
                     ) : (
                         <Loader />
                     )}
-
-                    <UpdateForm />
+                </div>
+                {/* <div className="lg:w-7/12 my-2 lg:my-0 lg:mx-2"> */}
+                <div>
+                    {filteredProject ? (
+                        <UpdateForm
+                            props={filteredProject[0]}
+                        />
+                    ) : (
+                        <Loader />
+                    )}
                 </div>
                 <div className="mx-4 lg:h-[100px]">
                     {withdrawReq ? (
@@ -153,17 +145,17 @@ const ProjectDetails = () => {
                     All updates on projects:
                 </h1>
                 {updates && updates.length > 0 ? (
-                    updates.map((update, index) => (
-                        <Addupdate
-                            index={index}
-                            description={update.description}
-                            time={update.time}
+                    updates.map((data, i) => (
+                        <AddUpdate
+                            key={i}
+                            description={data.description}
+                            time={data.time}
                         />
                     ))
                 ) : (
                     <p>No updates made by creator</p>
                 )}
-                <Addupdate />
+                
             </div>
             {/* </div> */}
         </div>
