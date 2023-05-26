@@ -1,5 +1,15 @@
 # Crowd funding
 
+This is a Minor-Project made for the purpose of the 3rd year project evaluation.
+The project is made under the guidance and supervision of Dr Vijay Kumar, Department of 
+Information Technology, Dr.B R Ambedkar National Institute of Technology. 
+
+The team member are:
+Abhishek Kumar (20109003)
+Abhijeet Kumar (20124003)
+Abhishek Kumar (20124007)
+Yogesh Saini (20124117)
+
 ### Project features :bulb:
 
 -   [x] User can start a fundraising.
@@ -9,23 +19,22 @@
 -   [x] Contributors can withdraw contributed amount if project expire.
 -   [x] Owner need to request contributors for withdraw amount.
 -   [x] Owner can withdraw amount if 50% contributors agree.
--   [x] Connect with waller.
+-   [x] Owner can put updates regarding the project.
+-   [x] Connect with wallet.
 
 ### Tech stack & packages used 📦
 
-<!-- | package                                                        | explain                                          |
-| -------------------------------------------------------------- | ------------------------------------------------ |
-| [Next.js](https://nextjs.org/docs/getting-started)             | For building frontend                            |
-| [solidity](https://docs.soliditylang.org/en/v0.8.13/)          | For writting smart contracts                     |
-| [tailwind css](https://tailwindcss.com/docs/installation)      | For building design                              |
-| [ether.js](https://docs.ethers.io/v5/)                         | Web3 client (contract testing ).                 |
-| [web3.js](https://www.npmjs.com/package/web3)                  | Web3 client (Frontend Next.js).                  |
-| [Chai](https://www.npmjs.com/package/chai)                     | javascript testing framework.                    |
-| [react-toastify](https://www.npmjs.com/package/react-toastify) | For Notification.                                |
-| [hardhat](https://www.npmjs.com/package/hardhat)               | Ethereum development environment.                |
-| [Redux](https://www.npmjs.com/package/hardhat)                 | For managing and centralizing application state. |
+ [Next.js](https://nextjs.org/docs/getting-started)              
+ [solidity](https://docs.soliditylang.org/en/v0.8.13/)           
+ [tailwind css](https://tailwindcss.com/docs/installation)       
+ [ether.js](https://docs.ethers.io/v5/)                          
+ [web3.js](https://www.npmjs.com/package/web3)                   
+ [Chai](https://www.npmjs.com/package/chai)                      
+ [react-toastify](https://www.npmjs.com/package/react-toastify)  
+ [hardhat](https://www.npmjs.com/package/hardhat)                
+ [Redux](https://www.npmjs.com/package/hardhat)                  
 
---- -->
+---
 
 ### How to run :runner: :
 
@@ -33,9 +42,6 @@
     ```
     npx hardhat node
     ```
--   Run test cases
-    ```
-    npx hardhat test
     ```
 -   Deploy contract in local hardhat node
     ```
@@ -48,31 +54,7 @@
     npm run dev
     ```
 
-### Web3.js
 
----
-
--   [Load web3](https://web3js.readthedocs.io/en/v1.2.11/web3-eth.html#web3-eth)
--   [Connect with contract](https://web3js.readthedocs.io/en/v1.2.11/web3-eth-contract.html#web3-eth-contract)
-    ```
-    new web3.eth.Contract(jsonInterface[, address][, options])
-    ```
--   [Callback promises events](https://web3js.readthedocs.io/en/v1.2.11/callbacks-promises-events.html#callbacks-promises-events)
-    ```
-    .on('transactionHash', function(hash){ ... })
-    .on('error', function(error){ ... })
-    ```
--   [Subscribe to event](https://web3js.readthedocs.io/en/v1.2.11/web3-eth-contract.html#contract-events)
-    ```
-    contractName.events.EventName([options][, callback])
-    ```
--   [Fetch all data from contract event](https://web3js.readthedocs.io/en/v1.2.11/web3-eth-contract.html#getpastevents)
-
-    -   <small> An array with the past event Objects, matching the given event name and filter.</small>
-
-    ```
-    contractName.getPastEvents(EventName[, options][, callback])
-    ```
 
 ### Hardhat commands
 
@@ -87,15 +69,4 @@ npx hardhat help
 npx hardhat run scripts/deploy.js --network <network name>
 ```
 
-### Issue
 
----
-ABICoder.prototype.decodeParametersWith
-
-// if (outputs.length > 0 && (!bytes || bytes === '0x' || bytes === '0X')) {
-if (outputs.length > 0 && (!bytes)) {
-
----
-
-}
-}

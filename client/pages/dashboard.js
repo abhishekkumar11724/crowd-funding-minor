@@ -4,7 +4,7 @@ import FundRiserForm from "../components/FundRiserForm";
 import { useSelector } from "react-redux";
 import FundRiserCard from "../components/FundRiserCard";
 import Loader from "../components/Loader";
-import bg from '../assets/mountain.png'
+
 
 const Dashboard = () => {
     const projectsList = useSelector((state) => state.projectReducer.projects);
