@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useRouter } from "next/router";
+import {Image} from "next/image";
 import { useDispatch, useSelector } from "react-redux";
 import { connectWithWallet } from "../helper/helper";
 import { loadAccount } from "../redux/interactions";
@@ -30,6 +31,8 @@ export default function Home() {
 
     return (
         <div className="w-screen h-screen bg-[conic-gradient(at_right,_var(--tw-gradient-stops))] from-indigo-200 via-slate-600 to-indigo-200">
+            <div className="bg-[url('/assets/mountain.png')] bg-no-repeat m-auto px-10 h-[800px] w-[800px]">
+
             <div className="flex bg- flex-col items-center justify-center ">
                 <button
                     className="p-4 my-10 text-lg font-bold text-white rounded-md w-56 bg-[#434c5e] drop-shadow-[0_25px_25px_rgba(0,0,0,0.55)] hover:bg-[#6f7789] hover:drop-shadow-[0_25px_25px_rgba(0,0,0,1)]"
@@ -37,8 +40,12 @@ export default function Home() {
                 >
                     Connect to MetaMask
                 </button>
+    
+                
                 {/* {active ? <span>Connected with <b>{account}</b></span> : <span>Not connected</span>} */}
             </div>
+            </div>
+
         </div>
     );
 }
