@@ -1,3 +1,8 @@
+# Hosted Site Address: 
+## https://crowd-funding-minor.netlify.app
+(note : to run the Application, You must have mata-mask extension installed in Browser)
+( to install the extention : [meta-mask](https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn))
+
 # Crowd funding
 
 This is a Minor-Project made for the purpose of the 3rd year project evaluation.
