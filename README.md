@@ -9,12 +9,6 @@ This is a Minor-Project made for the purpose of the 3rd year project evaluation.
 The project is made under the guidance and supervision of Dr Vijay Kumar, Department of 
 Information Technology, Dr.B R Ambedkar National Institute of Technology. 
 
-The team member are:
-Abhishek Kumar (20109003)
-Abhijeet Kumar (20124003)
-Abhishek Kumar (20124007)
-Yogesh Saini (20124117)
-
 ### Project features :bulb:
 
 -   [x] User can start a fundraising.
